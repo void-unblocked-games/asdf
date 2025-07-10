@@ -2,22 +2,22 @@
 
 :root {
     /* Light Mode Colors */
-    --bg-light: #f0f2f5; /* Lighter background for body */
+    --bg-light: #e0e0e0; /* Lighter background for body */
     --bg-container-light: #ffffff; /* Main container background */
-    --bg-sidebar-light: #f8f9fa; /* Sidebar background */
-    --bg-header-light: #f8f9fa; /* Chat header background */
+    --bg-sidebar-light: #f0f0f0; /* Sidebar background */
+    --bg-header-light: #f8f8f8; /* Chat header background */
     --bg-messages-light: #fdfdfd; /* Messages area background */
-    --bg-message-received-light: #e9ecef; /* Received message bubble */
-    --bg-message-sent-light: #d4edda; /* Sent message bubble (Google Green tint) */
-    --bg-input-light: #f8f9fa; /* Input group background */
-    --border-light: #e0e0e0; /* General border color */
-    --text-primary-light: #202124; /* Primary text color */
-    --text-secondary-light: #5f6368; /* Secondary text color */
+    --bg-message-received-light: #e6e6e6; /* Received message bubble */
+    --bg-message-sent-light: #dcf8c6; /* Sent message bubble (WhatsApp-like green) */
+    --bg-input-light: #ffffff; /* Input group background */
+    --border-light: #d0d0d0; /* General border color */
+    --text-primary-light: #333333; /* Primary text color */
+    --text-secondary-light: #777777; /* Secondary text color */
     --text-link-light: #1a73e8; /* Link/action color (Google Blue) */
     --text-username-received-light: #1a73e8; /* Username color for received messages */
     --text-username-sent-light: #34a853; /* Username color for sent messages */
-    --input-border-light: #ced4da; /* Input border */
-    --input-placeholder-light: #9aa0a6; /* Input placeholder */
+    --input-border-light: #cccccc; /* Input border */
+    --input-placeholder-light: #aaaaaa; /* Input placeholder */
     --button-primary-light: #1a73e8; /* Primary button (Google Blue) */
     --button-primary-hover-light: #174ea6; /* Primary button hover */
     --icon-light: #5f6368; /* Icon color */
@@ -25,27 +25,27 @@
     --selected-item-hover-light: #e0e2e5; /* Selected item hover */
 
     /* Dark Mode Colors */
-    --bg-dark: #202124; /* Darker background for body */
-    --bg-container-dark: #202124; /* Main container background */
-    --bg-sidebar-dark: #202124; /* Sidebar background */
-    --bg-header-dark: #202124; /* Chat header background */
-    --bg-messages-dark: #202124; /* Messages area background */
-    --bg-message-received-dark: #3c4043; /* Received message bubble */
-    --bg-message-sent-dark: #34a853; /* Sent message bubble (Google Green) */
-    --bg-input-dark: #202124; /* Input group background */
-    --border-dark: #3c4043; /* General border color */
-    --text-primary-dark: #e8eaed; /* Primary text color */
-    --text-secondary-dark: #9aa0a6; /* Secondary text color */
+    --bg-dark: #1a1a1a; /* Darker background for body */
+    --bg-container-dark: #2c2c2c; /* Main container background */
+    --bg-sidebar-dark: #222222; /* Sidebar background */
+    --bg-header-dark: #222222; /* Chat header background */
+    --bg-messages-dark: #2c2c2c; /* Messages area background */
+    --bg-message-received-dark: #3a3a3a; /* Received message bubble */
+    --bg-message-sent-dark: #075e54; /* Sent message bubble (WhatsApp-like dark green) */
+    --bg-input-dark: #222222; /* Input group background */
+    --border-dark: #444444; /* General border color */
+    --text-primary-dark: #e0e0e0; /* Primary text color */
+    --text-secondary-dark: #aaaaaa; /* Secondary text color */
     --text-link-dark: #8ab4f8; /* Link/action color (Google Blue) */
     --text-username-received-dark: #8ab4f8; /* Username color for received messages */
     --text-username-sent-dark: #fbbc04; /* Username color for sent messages (Google Yellow) */
-    --input-border-dark: #5f6368; /* Input border */
-    --input-placeholder-dark: #9aa0a6; /* Input placeholder */
+    --input-border-dark: #555555; /* Input border */
+    --input-placeholder-dark: #888888; /* Input placeholder */
     --button-primary-dark: #8ab4f8; /* Primary button (Google Blue) */
     --button-primary-hover-dark: #669df6; /* Primary button hover */
     --icon-dark: #9aa0a6; /* Icon color */
-    --selected-item-bg-dark: #3c4043; /* Selected item background */
-    --selected-item-hover-dark: #4a4e52; /* Selected item hover */
+    --selected-item-bg-dark: #3a3a3a; /* Selected item background */
+    --selected-item-hover-dark: #4a4a4a; /* Selected item hover */
 
     /* General */
     --border-radius-sm: 8px;
@@ -53,8 +53,9 @@
     --border-radius-lg: 20px;
     --border-radius-pill: 25px;
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.05);
-    --transition-speed: 0.3s ease;
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15); /* Larger shadow for containers */
+    --transition-speed: 0.3s ease-in-out;
 }
 
 body {
@@ -74,8 +75,16 @@ body {
 }
 
 body.dark-mode {
-    background: var(--bg-dark);
+    background: linear-gradient(-45deg, var(--bg-dark), var(--bg-container-dark), var(--bg-dark), var(--bg-container-dark));
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
     color: var(--text-primary-dark);
+}
+
+@keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* App Container */
@@ -84,6 +93,12 @@ body.dark-mode {
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg); /* Apply larger shadow to app container */
+    margin: 20px; /* Add some margin around the app */
+    max-width: 1200px; /* Max width for better presentation */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Sidebar */
@@ -95,14 +110,16 @@ body.dark-mode {
     flex-direction: column;
     border-right: 1px solid var(--border-light);
     position: relative;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-md); /* Subtle shadow for sidebar */
     transition: background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
+    border-top-left-radius: var(--border-radius-md);
+    border-bottom-left-radius: var(--border-radius-md);
 }
 
 body.dark-mode .sidebar {
     background-color: var(--bg-sidebar-dark);
     border-color: var(--border-dark);
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    box-shadow: var(--shadow-md);
 }
 
 .sidebar h2 {
@@ -110,7 +127,7 @@ body.dark-mode .sidebar {
     font-size: 1.8em;
     margin-bottom: 25px;
     text-align: center;
-    font-family: 'Imprima', sans-serif; /* Keeping Imprima for title as per original */
+    font-family: 'Imprima', sans-serif;
     transition: color var(--transition-speed);
 }
 
@@ -127,13 +144,13 @@ body.dark-mode .sidebar h2 {
 }
 
 .user-item {
-    padding: 10px 15px;
+    padding: 12px 15px; /* Increased padding */
     color: var(--text-secondary-light);
     cursor: pointer;
     display: flex;
     align-items: center;
     border-radius: var(--border-radius-sm);
-    margin-bottom: 5px;
+    margin-bottom: 8px; /* Increased margin */
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
@@ -169,8 +186,8 @@ body.dark-mode .user-item.selected {
     background-color: var(--bg-container-light);
     border: 1px solid var(--border-light);
     border-radius: 50%;
-    width: 48px; /* Slightly larger */
-    height: 48px; /* Slightly larger */
+    width: 50px; /* Slightly larger */
+    height: 50px; /* Slightly larger */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -180,19 +197,19 @@ body.dark-mode .user-item.selected {
 }
 
 body.dark-mode .dark-mode-toggle {
-    background-color: var(--bg-message-received-dark); /* Using a darker shade for toggle in dark mode */
+    background-color: var(--bg-message-received-dark);
     border-color: var(--border-dark);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .dark-mode-toggle i {
     color: var(--icon-light);
-    font-size: 1.4em; /* Slightly larger icon */
+    font-size: 1.5em; /* Slightly larger icon */
     transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
 body.dark-mode .dark-mode-toggle i {
-    color: var(--text-username-sent-dark); /* Google Yellow for moon */
+    color: var(--text-username-sent-dark);
 }
 
 .dark-mode-toggle.jiggle i {
@@ -214,7 +231,7 @@ body.dark-mode .dark-mode-toggle i {
 @keyframes morph {
     0% { transform: scale(1) rotate(0deg); opacity: 1; }
     50% { transform: scale(0.5) rotate(180deg); opacity: 0; }
-    51% { transform: scale(0.5) rotate(-180deg); opacity: 0; } /* Instant change of icon */
+    51% { transform: scale(0.5) rotate(-180deg); opacity: 0; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
@@ -225,6 +242,8 @@ body.dark-mode .dark-mode-toggle i {
     flex-direction: column;
     background-color: var(--bg-container-light);
     transition: background-color var(--transition-speed);
+    border-top-right-radius: var(--border-radius-md);
+    border-bottom-right-radius: var(--border-radius-md);
 }
 
 body.dark-mode .chat-container {
@@ -233,10 +252,10 @@ body.dark-mode .chat-container {
 
 .chat-container header {
     background-color: var(--bg-header-light);
-    padding: 15px 20px;
+    padding: 18px 20px; /* Increased padding */
     border-bottom: 1px solid var(--border-light);
     text-align: center;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     transition: background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
@@ -247,7 +266,7 @@ body.dark-mode .chat-container header {
 
 .chat-container header h1 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.6em; /* Slightly larger font */
     color: var(--text-primary-light);
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
@@ -284,14 +303,14 @@ body.dark-mode #messages {
     font-size: 0.95em;
     line-height: 1.4;
     transition: background-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
-    border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+    border: none; /* Removed subtle border for cleaner look */
 }
 
 .message.my-message {
     background-color: var(--bg-message-sent-light);
     align-self: flex-end;
     border-radius: 20px 20px 5px 20px; /* Rounded corners, with a slight corner on the bottom-right */
-    border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+    border: none; /* Removed subtle border for cleaner look */
 }
 
 body.dark-mode .message {
@@ -331,6 +350,7 @@ body.dark-mode .message.my-message .username {
     background-color: var(--bg-input-light);
     align-items: center;
     transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    border-bottom-right-radius: var(--border-radius-md);
 }
 
 body.dark-mode .input-group {
@@ -340,13 +360,13 @@ body.dark-mode .input-group {
 
 #message-input {
     flex-grow: 1;
-    padding: 10px 15px;
+    padding: 12px 18px; /* Increased padding */
     border: 1px solid var(--input-border-light);
     border-radius: var(--border-radius-pill);
     font-size: 1em;
     outline: none;
     resize: none;
-    min-height: 40px;
+    min-height: 45px; /* Slightly taller */
     max-height: 120px;
     overflow-y: auto;
     background-color: var(--bg-container-light); /* Match container background */
@@ -355,7 +375,7 @@ body.dark-mode .input-group {
 }
 
 body.dark-mode #message-input {
-    background-color: var(--bg-message-received-dark); /* Match received message bubble for input */
+    background-color: var(--bg-message-received-dark);
     border-color: var(--input-border-dark);
     color: var(--text-primary-dark);
 }
@@ -373,17 +393,21 @@ body.dark-mode #message-input::placeholder {
     background-color: var(--button-primary-light);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 25px; /* Increased padding */
     border-radius: var(--border-radius-pill);
     margin-left: 10px;
     cursor: pointer;
     font-size: 1em;
     font-weight: 600;
-    transition: background-color var(--transition-speed);
+    transition: background-color var(--transition-speed), transform 0.1s ease-out; /* Added transform for click effect */
 }
 
 #send-button:hover {
     background-color: var(--button-primary-hover-light);
+}
+
+#send-button:active {
+    transform: scale(0.98); /* Click effect */
 }
 
 body.dark-mode #send-button {
@@ -427,6 +451,9 @@ body.dark-mode .typing-indicator {
 @media (max-width: 480px) {
     .app-container {
         flex-direction: column;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
     }
     .sidebar {
         width: 100%;
@@ -437,6 +464,7 @@ body.dark-mode .typing-indicator {
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
+        border-radius: 0;
     }
     body.dark-mode .sidebar {
         border-bottom: 1px solid var(--border-dark);
@@ -449,6 +477,7 @@ body.dark-mode .typing-indicator {
     }
     .chat-container {
         height: calc(100vh - 60px); /* Adjust height based on sidebar height */
+        border-radius: 0;
     }
     .dark-mode-toggle {
         position: static;
