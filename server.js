@@ -5,7 +5,7 @@ const WebSocket = require('ws');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const aiQueryCounts = new Map(); // Maps userId to query count
 const crypto = require('crypto');
@@ -168,7 +168,10 @@ wss.on('connection', (ws, req) => {
             const userQuery = parsedMessage.content;
             async function run() {
                 try {
-                    const result = await model.generateContent(userQuery);
+                    const result = await model.generateContent({
+                        contents: [{ role: "user", parts: [{ text: userQuery }] }],
+                        generationConfig: { maxOutputTokens: 1000 },
+                    });
                     const response = await result.response;
                     const text = response.text();
                     broadcast({
