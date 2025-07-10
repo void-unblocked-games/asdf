@@ -312,8 +312,7 @@ html[data-theme='dark'] #messages {
 
 .message.my-message {
     background-color: var(--bg-message-sent-light);
-    align-self: flex-end;
-    border-radius: 20px 20px 5px 20px; /* Rounded corners, with a slight corner on the bottom-right */
+    border-radius: 20px 20px 20px 5px; /* Rounded corners, consistent with received messages */
     border: none; /* Removed subtle border for cleaner look */
 }
 
