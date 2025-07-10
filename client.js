@@ -24,6 +24,9 @@ let currentRecipient = null;
 let typingTimeout = undefined;
 let selectedUserItem = null;
 
+let nextGifPos = ''; // For Tenor GIF pagination
+let isLoadingGifs = false; // To prevent multiple simultaneous loads
+
 let publicChatMessages = [];
 let dmMessages = new Map(); // Maps userId to an array of messages
 
@@ -105,6 +108,7 @@ closeButton.addEventListener('click', () => {
     gifModal.style.display = 'none';
     gifResults.innerHTML = ''; // Clear results when closing
     gifSearchInput.value = '';
+    nextGifPos = ''; // Reset pagination when modal is closed
 });
 
 gifModal.addEventListener('click', (event) => {
@@ -117,6 +121,9 @@ gifModal.addEventListener('click', (event) => {
 
 let gifSearchTimeout;
 gifSearchInput.addEventListener('input', () => {
+    nextGifPos = ''; // Reset pagination on new search
+    gifResults.innerHTML = ''; // Clear previous results immediately
+
     clearTimeout(gifSearchTimeout);
     gifSearchTimeout = setTimeout(() => {
         searchTenorGifs(gifSearchInput.value);
@@ -174,6 +181,75 @@ function selectGif(gifUrl) {
     gifModal.style.display = 'none';
     gifResults.innerHTML = '';
     gifSearchInput.value = '';
+    nextGifPos = ''; // Reset pagination after sending GIF
+}
+
+// Add scroll event listener for infinite scrolling
+gifResults.addEventListener('scroll', () => {
+    if (gifResults.scrollTop + gifResults.clientHeight >= gifResults.scrollHeight - 100 && !isLoadingGifs && nextGifPos !== '') {
+        searchTenorGifs(gifSearchInput.value, nextGifPos);
+    }
+});
+
+// Add a loading indicator element
+const gifLoadingIndicator = document.createElement('div');
+gifLoadingIndicator.id = 'gif-loading-indicator';
+gifLoadingIndicator.textContent = 'Loading more GIFs...';
+gifLoadingIndicator.style.display = 'none'; // Hidden by default
+gifModal.querySelector('.gif-modal-content').appendChild(gifLoadingIndicator);
+
+function showGifLoadingIndicator() {
+    gifLoadingIndicator.style.display = 'block';
+}
+
+function hideGifLoadingIndicator() {
+    gifLoadingIndicator.style.display = 'none';
+}
+}
+
+// Add scroll event listener for infinite scrolling
+gifResults.addEventListener('scroll', () => {
+    if (gifResults.scrollTop + gifResults.clientHeight >= gifResults.scrollHeight - 100 && !isLoadingGifs && nextGifPos !== '') {
+        searchTenorGifs(gifSearchInput.value, nextGifPos);
+    }
+});
+
+// Add a loading indicator element
+const gifLoadingIndicator = document.createElement('div');
+gifLoadingIndicator.id = 'gif-loading-indicator';
+gifLoadingIndicator.textContent = 'Loading more GIFs...';
+gifLoadingIndicator.style.display = 'none'; // Hidden by default
+gifModal.querySelector('.gif-modal-content').appendChild(gifLoadingIndicator);
+
+function showGifLoadingIndicator() {
+    gifLoadingIndicator.style.display = 'block';
+}
+
+function hideGifLoadingIndicator() {
+    gifLoadingIndicator.style.display = 'none';
+}
+}
+
+// Add scroll event listener for infinite scrolling
+gifResults.addEventListener('scroll', () => {
+    if (gifResults.scrollTop + gifResults.clientHeight >= gifResults.scrollHeight - 100 && !isLoadingGifs && nextGifPos !== '') {
+        searchTenorGifs(gifSearchInput.value, nextGifPos);
+    }
+});
+
+// Add a loading indicator element
+const gifLoadingIndicator = document.createElement('div');
+gifLoadingIndicator.id = 'gif-loading-indicator';
+gifLoadingIndicator.textContent = 'Loading more GIFs...';
+gifLoadingIndicator.style.display = 'none'; // Hidden by default
+gifModal.querySelector('.gif-modal-content').appendChild(gifLoadingIndicator);
+
+function showGifLoadingIndicator() {
+    gifLoadingIndicator.style.display = 'block';
+}
+
+function hideGifLoadingIndicator() {
+    gifLoadingIndicator.style.display = 'none';
 }
 
 function displayMessage(message, isCached = false) {
