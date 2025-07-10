@@ -237,7 +237,6 @@ html[data-theme='dark'] .sidebar h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Center content horizontally */
     border-radius: var(--border-radius-sm);
     margin-bottom: 8px;
     /* Increased margin */
@@ -269,13 +268,29 @@ html[data-theme='dark'] .user-item.selected {
 }
 
 
+<<<<<<< Updated upstream
+/* Header Buttons Container */
+
+.header-buttons {
+=======
 /* Dark Mode Toggle */
 
 .dark-mode-toggle {
+>>>>>>> Stashed changes
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    /* Space between buttons */
+}
+
+
+/* Dark Mode Toggle */
+
+.dark-mode-toggle,
+.settings-button {
     background-color: var(--bg-container-light);
     border: 1px solid var(--border-light);
     border-radius: 50%;
@@ -291,24 +306,28 @@ html[data-theme='dark'] .user-item.selected {
     transition: background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
-html[data-theme='dark'] .dark-mode-toggle {
+html[data-theme='dark'] .dark-mode-toggle,
+html[data-theme='dark'] .settings-button {
     background-color: var(--bg-message-received-dark);
     border-color: var(--border-dark);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.dark-mode-toggle i {
+.dark-mode-toggle i,
+.settings-button i {
     color: var(--icon-light);
     font-size: 1.5em;
     /* Slightly larger icon */
     transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
-html[data-theme='dark'] .dark-mode-toggle i {
+html[data-theme='dark'] .dark-mode-toggle i,
+html[data-theme='dark'] .settings-button i {
     color: var(--text-username-sent-dark);
 }
 
-.dark-mode-toggle.jiggle i {
+.dark-mode-toggle.jiggle i,
+.settings-button.jiggle i {
     animation: jiggle 0.3s ease-in-out;
 }
 
@@ -330,7 +349,8 @@ html[data-theme='dark'] .dark-mode-toggle i {
     }
 }
 
-.dark-mode-toggle.morph i {
+.dark-mode-toggle.morph i,
+.settings-button.morph i {
     animation: morph 0.3s ease-in-out forwards;
 }
 
@@ -498,14 +518,24 @@ html[data-theme='dark'] .input-group {
 
 #message-input {
     flex-grow: 1;
+<<<<<<< Updated upstream
     padding: 12px 18px;
     /* Increased padding */
     border: 1px solid var(--input-border-light);
+=======
+    padding: 10px;
+    /* Increased padding */
+    border: 2px solid var(--input-border-light);
+>>>>>>> Stashed changes
     border-radius: var(--border-radius-pill);
     font-size: 1em;
     outline: none;
     resize: none;
+<<<<<<< Updated upstream
     min-height: 45px;
+=======
+    min-height: 30px;
+>>>>>>> Stashed changes
     /* Slightly taller */
     max-height: 120px;
     overflow-y: auto;
@@ -610,6 +640,64 @@ html[data-theme='dark'] .typing-indicator {
 }
 
 
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .sidebar h2 {
+        font-size: 1.5em;
+    }
+    .chat-container header h1 {
+        font-size: 1.2em;
+    }
+    .message {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        flex-direction: column;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        border-radius: 0;
+    }
+    html[data-theme='dark'] .sidebar {
+        border-bottom: 1px solid var(--border-dark);
+    }
+    .sidebar h2 {
+        margin-bottom: 0;
+    }
+    #user-list {
+        display: none;
+        /* Hide user list on small screens */
+    }
+    .chat-container {
+        height: calc(100vh - 60px);
+        /* Adjust height based on sidebar height */
+        border-radius: 0;
+    }
+    .dark-mode-toggle {
+        position: static;
+        transform: none;
+    }
+}
+
+
+<<<<<<< Updated upstream
 /* Responsive adjustments */
 
 @media (max-width: 768px) {
@@ -789,6 +877,8 @@ html[data-theme='dark'] #save-display-name-button:hover {
 }
 
 
+=======
+>>>>>>> Stashed changes
 /* GIF Button */
 
 .gif-button {
@@ -923,6 +1013,8 @@ html[data-theme='dark'] #gif-search-input {
 
 .gif-results img {
     width: 100%;
+    max-height: 150px;
+    /* Adjust as needed */
     max-height: 150px;
     /* Adjust as needed */
     object-fit: contain;
