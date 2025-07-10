@@ -293,9 +293,9 @@ html[data-theme='dark'] #messages {
 .message {
     background-color: var(--bg-message-received-light);
     padding: 12px 18px;
-    border-radius: var(--border-radius-lg);
+    border-radius: 20px 20px 20px 5px; /* Rounded corners, with a slight corner on the bottom-left */
     margin-bottom: 10px;
-    max-width: 65%;
+    width: fit-content; /* Shrink to fit content */
     word-wrap: break-word;
     box-shadow: var(--shadow-sm);
     font-size: 0.95em;
