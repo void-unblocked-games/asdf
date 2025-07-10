@@ -92,6 +92,7 @@ html[data-theme='dark'] body {
 /* App Container */
 .app-container {
     display: flex;
+    position: relative; /* Added for positioning loading spinner */
     width: 90%; /* Make it wider */
     height: 90vh; /* Make it slightly less tall */
     overflow: hidden;
@@ -443,9 +444,10 @@ html[data-theme='dark'] .typing-indicator {
 
 /* Loading Spinner */
 .loading-spinner {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
