@@ -182,7 +182,8 @@ html[data-theme='dark'] .sidebar h2 {
 }
 
 .user-item:hover {
-    background-color: var(--selected-item-hover-light);
+    background-color: #ffffff;
+    color: var(--text-primary-light);
 }
 
 .user-item.selected {
