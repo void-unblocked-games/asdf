@@ -444,7 +444,7 @@ html[data-theme='dark'] .typing-indicator {
 
 /* Loading Spinner */
 .loading-spinner {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
