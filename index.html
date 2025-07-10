@@ -17,6 +17,7 @@
             <div class="header-buttons">
                 <button id="dark-mode-toggle" class="dark-mode-toggle"><i class="fas fa-sun"></i></button>
                 <button id="settings-button" class="settings-button"><i class="fas fa-cog"></i></button>
+                
             </div>
             <ul id="user-list"></ul>
         </div>
@@ -32,7 +33,9 @@
         </div>
     </div>
     <div id="loading-spinner" class="loading-spinner"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTFyN/jKEOJ/rYuCpFGwKj/waCk2rdEvb0iZEsjpDGXh7zPKQ+6qQ" crossorigin="anonymous"></script>
+    <script src="client.js"></script>
     <div class="modal micromodal-slide" id="settings-modal" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
             <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
@@ -42,20 +45,17 @@
                     </h2>
                     <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                 </header>
-                <main class="modal__content" id="settings-modal-content">
+                <main class="modal__content">
                     <p>Current Display Name: <span id="current-display-name"></span></p>
+                    <label for="new-display-name-input">New Display Name:</label>
                     <input type="text" id="new-display-name-input" placeholder="Enter new display name">
-                    <button id="save-display-name-button">Save</button>
                 </main>
                 <footer class="modal__footer">
-                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
+                    <button class="modal__btn" id="save-display-name-button">Save</button>
+                    <button class="modal__btn modal__btn-secondary" data-micromodal-close aria-label="Close this dialog window">Close</button>
                 </footer>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/micromodal/dist/micromodal.min.js"></script>
-    <script src="client.js"></script>
 </body>
 </html>
