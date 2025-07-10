@@ -683,6 +683,7 @@ html[data-theme='dark'] #gif-search-input {
 
 .chat-gif {
     max-width: 100%;
+    max-height: 50%; /* Set max height to 50% of its container */
     height: auto;
     border-radius: var(--border-radius-sm);
 }
