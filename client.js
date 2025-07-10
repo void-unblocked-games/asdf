@@ -261,31 +261,49 @@ function hideTypingIndicator(message) {
 const sendMessage = () => {
     const content = messageInput.value;
     if (content && socket.readyState === WebSocket.OPEN) {
-        let messageToSend = {
-            content: purify.sanitize(content), // Sanitize content before sending
+        let messageType = 'chat';
+        let messageContent = content;
+        let messageRecipient = null;
+
+        if (content.toLowerCase().startsWith('@ai')) {
+            messageType = 'aiQuery';
+            messageContent = content.substring(content.toLowerCase().startsWith('@ai ') ? 4 : 3).trim();
+            // For display, we want the original content with @ai highlighted
+            displayMessage({
+                type: 'chat', // Display as a regular chat message
+                content: `<b>@ai</b> ${content}`,
+                sender: myUserId,
+                senderVanity: myUserVanity,
+            });
+        } else if (currentRecipient) {
+            messageType = 'dm';
+            messageRecipient = currentRecipient;
+            displayMessage({
+                type: 'dm',
+                content: content,
+                sender: myUserId,
+                senderVanity: myUserVanity,
+                recipient: currentRecipient,
+            });
+        } else {
+            displayMessage({
+                type: 'chat',
+                content: content,
+                sender: myUserId,
+                senderVanity: myUserVanity,
+            });
+        }
+
+        // Now send the message to the server
+        const messageToSend = {
+            type: messageType,
+            content: messageContent,
             sender: myUserId,
             senderVanity: myUserVanity,
         };
-
-        let messageToDisplay = { ...messageToSend }; // Copy for display
-
-        if (content.toLowerCase().startsWith('@ai')) {
-            messageToSend.type = 'aiQuery';
-            messageToSend.content = content.substring(content.toLowerCase().startsWith('@ai ') ? 4 : 3).trim(); // Remove "@ai " or "@ai" prefix for AI query
-            messageToDisplay.type = 'chat'; // Display as a chat message
-            messageToDisplay.content = `<b>@ai</b> ${purify.sanitize(content)}`; // Display original content with highlight
-        } else if (currentRecipient) {
-            messageToSend.type = 'dm';
-            messageToSend.recipient = currentRecipient;
-            messageToDisplay.type = 'dm';
-            messageToDisplay.recipient = currentRecipient;
-        } else {
-            messageToSend.type = 'chat';
-            messageToDisplay.type = 'chat';
+        if (messageRecipient) {
+            messageToSend.recipient = messageRecipient;
         }
-
-        // Display own message immediately
-        displayMessage(messageToDisplay);
 
         socket.send(JSON.stringify(messageToSend));
         messageInput.value = '';
