@@ -8,14 +8,14 @@
     --bg-header-light: #ffffff; /* Chat header background */
     --bg-messages-light: #f5f7fa; /* Messages area background */
     --bg-message-received-light: #e9e9eb; /* Received message bubble */
-    --bg-message-sent-light: #007bff; /* Sent message bubble (WhatsApp-like green) */
+    --bg-message-sent-light: #d1e7ff; /* Sent message bubble (WhatsApp-like green) */
     --bg-input-light: #ffffff; /* Input group background */
     --border-light: #dee2e6; /* General border color */
     --text-primary-light: #212529; /* Primary text color */
     --text-secondary-light: #6c757d; /* Secondary text color */
     --text-link-light: #007bff; /* Link/action color (Google Blue) */
     --text-username-received-light: #007bff; /* Username color for received messages */
-    --text-username-sent-light: #ffffff; /* Username color for sent messages */
+    --text-username-sent-light: #0056b3; /* Username color for sent messages */
     --input-border-light: #ced4da; /* Input border */
     --input-placeholder-light: #adb5bd; /* Input placeholder */
     --button-primary-light: #007bff; /* Primary button (Google Blue) */
