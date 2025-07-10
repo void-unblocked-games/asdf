@@ -123,42 +123,29 @@ let gifSearchTimeout;
 gifSearchInput.addEventListener('input', () => {
     nextGifPos = ''; // Reset pagination on new search
     gifResults.innerHTML = ''; // Clear previous results immediately
-
     clearTimeout(gifSearchTimeout);
     gifSearchTimeout = setTimeout(() => {
         searchTenorGifs(gifSearchInput.value);
     }, 500); // Debounce search input
 });
 
-async function searchTenorGifs(query) {
-    if (query.trim() === '') {
-        gifResults.innerHTML = '';
-        return;
-    }
-    try {
-        const response = await fetch(`https://tenor.googleapis.com/v2/search?q=${query}&key=${TENOR_API_KEY}&client_key=my_test_app&limit=8`);
-        const data = await response.json();
-        displayGifResults(data.results);
-    } catch (error) {
-        console.error('Error searching Tenor GIFs:', error);
-        gifResults.innerHTML = '<p>Error loading GIFs. Please try again.</p>';
-    }
+
+
+
+
+// Add a loading indicator element
+const gifLoadingIndicator = document.createElement('div');
+gifLoadingIndicator.id = 'gif-loading-indicator';
+gifLoadingIndicator.textContent = 'Loading more GIFs...';
+gifLoadingIndicator.style.display = 'none'; // Hidden by default
+gifModal.querySelector('.gif-modal-content').appendChild(gifLoadingIndicator);
+
+function showGifLoadingIndicator() {
+    gifLoadingIndicator.style.display = 'block';
 }
 
-function displayGifResults(gifs) {
-    gifResults.innerHTML = '';
-    if (gifs.length === 0) {
-        gifResults.innerHTML = '<p>No GIFs found.</p>';
-        return;
-    }
-    gifs.forEach(gif => {
-        const img = document.createElement('img');
-        img.src = gif.media_formats.gif.url;
-        img.alt = gif.content_description;
-        img.title = gif.content_description;
-        img.addEventListener('click', () => selectGif(gif.media_formats.gif.url));
-        gifResults.appendChild(img);
-    });
+function hideGifLoadingIndicator() {
+    gifLoadingIndicator.style.display = 'none';
 }
 
 function selectGif(gifUrl) {
@@ -191,65 +178,26 @@ gifResults.addEventListener('scroll', () => {
     }
 });
 
-// Add a loading indicator element
-const gifLoadingIndicator = document.createElement('div');
-gifLoadingIndicator.id = 'gif-loading-indicator';
-gifLoadingIndicator.textContent = 'Loading more GIFs...';
-gifLoadingIndicator.style.display = 'none'; // Hidden by default
-gifModal.querySelector('.gif-modal-content').appendChild(gifLoadingIndicator);
-
-function showGifLoadingIndicator() {
-    gifLoadingIndicator.style.display = 'block';
-}
-
-function hideGifLoadingIndicator() {
-    gifLoadingIndicator.style.display = 'none';
-}
-}
-
-// Add scroll event listener for infinite scrolling
-gifResults.addEventListener('scroll', () => {
-    if (gifResults.scrollTop + gifResults.clientHeight >= gifResults.scrollHeight - 100 && !isLoadingGifs && nextGifPos !== '') {
-        searchTenorGifs(gifSearchInput.value, nextGifPos);
+async function searchTenorGifs(query, pos = '') {
+    if (query.trim() === '') {
+        gifResults.innerHTML = '';
+        return;
     }
-});
-
-// Add a loading indicator element
-const gifLoadingIndicator = document.createElement('div');
-gifLoadingIndicator.id = 'gif-loading-indicator';
-gifLoadingIndicator.textContent = 'Loading more GIFs...';
-gifLoadingIndicator.style.display = 'none'; // Hidden by default
-gifModal.querySelector('.gif-modal-content').appendChild(gifLoadingIndicator);
-
-function showGifLoadingIndicator() {
-    gifLoadingIndicator.style.display = 'block';
-}
-
-function hideGifLoadingIndicator() {
-    gifLoadingIndicator.style.display = 'none';
-}
-}
-
-// Add scroll event listener for infinite scrolling
-gifResults.addEventListener('scroll', () => {
-    if (gifResults.scrollTop + gifResults.clientHeight >= gifResults.scrollHeight - 100 && !isLoadingGifs && nextGifPos !== '') {
-        searchTenorGifs(gifSearchInput.value, nextGifPos);
+    isLoadingGifs = true;
+    showGifLoadingIndicator();
+    try {
+        const url = `https://tenor.googleapis.com/v2/search?q=${query}&key=${TENOR_API_KEY}&client_key=my_test_app&limit=8${pos ? `&pos=${pos}` : ''}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        nextGifPos = data.next || '';
+        displayGifResults(data.results, pos === ''); // Clear only for initial search
+    } catch (error) {
+        console.error('Error searching Tenor GIFs:', error);
+        gifResults.innerHTML = '<p>Error loading GIFs. Please try again.</p>';
+    } finally {
+        isLoadingGifs = false;
+        hideGifLoadingIndicator();
     }
-});
-
-// Add a loading indicator element
-const gifLoadingIndicator = document.createElement('div');
-gifLoadingIndicator.id = 'gif-loading-indicator';
-gifLoadingIndicator.textContent = 'Loading more GIFs...';
-gifLoadingIndicator.style.display = 'none'; // Hidden by default
-gifModal.querySelector('.gif-modal-content').appendChild(gifLoadingIndicator);
-
-function showGifLoadingIndicator() {
-    gifLoadingIndicator.style.display = 'block';
-}
-
-function hideGifLoadingIndicator() {
-    gifLoadingIndicator.style.display = 'none';
 }
 
 function displayMessage(message, isCached = false) {
@@ -508,7 +456,6 @@ darkModeToggle.addEventListener('click', () => {
     // Add jiggle and morph classes
     darkModeToggle.classList.add('jiggle');
     darkModeToggle.classList.add('morph');
-
     // Toggle dark mode
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
         document.documentElement.setAttribute('data-theme', 'light');
@@ -535,3 +482,4 @@ darkModeToggle.addEventListener('click', () => {
 });
 
 connect();
+
