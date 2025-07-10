@@ -405,29 +405,51 @@ function hideTypingIndicator(message) {
 const sendMessage = () => {
     const content = messageInput.value;
     if (content && socket.readyState === WebSocket.OPEN) {
-        const message = {
-            content: content,
+        let messageType = 'chat';
+        let messageContent = content;
+        let messageRecipient = null;
+
+        if (content.toLowerCase().startsWith('@ai')) {
+            messageType = 'aiQuery';
+            messageContent = content.substring(content.toLowerCase().startsWith('@ai ') ? 4 : 3).trim();
+            
+        } else if (currentRecipient) {
+            messageType = 'dm';
+            messageRecipient = currentRecipient;
+            displayMessage({
+                type: 'dm',
+                content: content,
+                sender: myUserId,
+                senderVanity: myUserVanity,
+                recipient: currentRecipient,
+            });
+        } else {
+            displayMessage({
+                type: 'chat',
+                content: content,
+                sender: myUserId,
+                senderVanity: myUserVanity,
+            });
+        }
+
+        // Now send the message to the server
+        const messageToSend = {
+            type: messageType,
+            content: messageContent,
             sender: myUserId,
             senderVanity: myUserVanity,
         };
-
-        if (currentRecipient) {
-            message.type = 'dm';
-            message.recipient = currentRecipient;
-        } else {
-            message.type = 'chat';
+        if (messageRecipient) {
+            messageToSend.recipient = messageRecipient;
         }
 
-        // Display own message immediately
-        displayMessage(message);
-
-        socket.send(JSON.stringify(message));
+        socket.send(JSON.stringify(messageToSend));
         messageInput.value = '';
         clearTimeout(typingTimeout);
         sendTypingStatus(false);
     } else if (socket.readyState !== WebSocket.OPEN) {
         console.log('WebSocket is not open. readyState: ' + socket.readyState);
-    }
+    };
 };
 
 sendButton.addEventListener('click', sendMessage);
@@ -451,6 +473,7 @@ messageInput.addEventListener('keydown', (event) => {
 
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const darkModeIcon = darkModeToggle.querySelector('i');
+const userProfileButton = document.getElementById('user-profile-button');
 
 function updateDarkModeIcon() {
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
@@ -502,6 +525,72 @@ darkModeToggle.addEventListener('click', () => {
     setTimeout(() => {
         darkModeToggle.classList.remove('jiggle');
     }, 300);
+});
+
+// Apply theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    updateDarkModeIcon();
+});
+
+const settingsDropdown = document.getElementById('settings-dropdown');
+
+userProfileButton.addEventListener('click', () => {
+    // Add jiggle and morph classes
+    userProfileButton.classList.add('jiggle');
+    userProfileButton.classList.add('morph');
+
+    // After the morph animation completes, remove the morph class
+    setTimeout(() => {
+        userProfileButton.classList.remove('morph');
+    }, 300);
+
+    // After the jiggle animation completes, remove the jiggle class
+    setTimeout(() => {
+        userProfileButton.classList.remove('jiggle');
+    }, 300);
+
+    // Set the current display name in the input field
+    newDisplayNameInput.value = myUserVanity;
+
+    // Toggle the settings dropdown
+    settingsDropdown.classList.toggle('show');
+});
+
+// Close the dropdown if the user clicks outside of it
+window.addEventListener('click', (event) => {
+    if (!event.target.matches('.settings-button') && !userProfileButton.contains(event.target) && !settingsDropdown.contains(event.target)) {
+        if (settingsDropdown.classList.contains('show')) {
+            settingsDropdown.classList.remove('show');
+        }
+    }
+});
+
+const saveDisplayNameButton = document.getElementById('save-display-name-button');
+const newDisplayNameInput = document.getElementById('new-display-name-input');
+
+saveDisplayNameButton.addEventListener('click', () => {
+    const newVanity = newDisplayNameInput.value.trim();
+    if (newVanity && newVanity !== myUserVanity) {
+        myUserVanity = newVanity;
+        localStorage.setItem('userVanity', myUserVanity);
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({ type: 'setVanity', vanity: myUserVanity }));
+        }
+        alert('Display name updated!');
+        settingsDropdown.classList.remove('show'); // Close dropdown after saving
+    } else if (newVanity === myUserVanity) {
+        alert('New display name is the same as the current one.');
+    } else {
+        alert('Display name cannot be empty.');
+    }
 });
 
 connect();

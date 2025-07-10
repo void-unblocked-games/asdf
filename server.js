@@ -2,6 +2,29 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const WebSocket = require('ws');
+const Ollama = require('ollama').default;
+
+let ollama;
+let modelName = 'qwen:0.5b'; // Default Ollama model name for Qwen 0.5B
+
+try {
+    ollama = new Ollama({
+        host: process.env.OLLAMA_HOST || 'http://localhost:11434',
+    });
+} catch (error) {
+    console.warn("Warning: Ollama client could not be initialized. Check OLLAMA_HOST environment variable.", error);
+    ollama = null; // Ensure ollama is null if initialization fails
+}
+
+const preDefinedAiResponses = [
+    "I'm here. How can I help?",
+    "Yes, I'm listening.",
+    "What's on your mind?",
+    "Ready when you are!",
+    "How may I assist you today?"
+];
+
+const aiQueryCounts = new Map(); // Maps userId to query count
 const crypto = require('crypto');
 const { JSDOM } = require('jsdom');
 const DOMPurify = require('dompurify');
@@ -143,6 +166,67 @@ wss.on('connection', (ws, req) => {
             const sanitizedContent = purify.sanitize(parsedMessage.content);
             parsedMessage.content = sanitizedContent;
             broadcast(parsedMessage, ws);
+        } else if (parsedMessage.type === 'aiQuery') {
+            const userId = parsedMessage.sender;
+            const currentCount = aiQueryCounts.get(userId) || 0;
+
+            if (!ollama) {
+                ws.send(JSON.stringify({
+                    type: 'chat',
+                    sender: 'Qwen AI',
+                    senderVanity: 'Qwen AI',
+                    content: 'Qwen AI (Ollama) is not initialized. Please check server logs for warnings.'
+                }));
+                return;
+            }
+
+            const userQuery = parsedMessage.content;
+            if (userQuery.trim() === '') {
+                const randomResponse = preDefinedAiResponses[Math.floor(Math.random() * preDefinedAiResponses.length)];
+                broadcast({
+                    type: 'chat',
+                    sender: parsedMessage.sender,
+                    senderVanity: parsedMessage.senderVanity,
+                    content: `<b>@ai</b> ${purify.sanitize(parsedMessage.content)}`
+                });
+                broadcast({
+                    type: 'chat',
+                    sender: 'Gemini AI',
+                    senderVanity: 'Gemini AI',
+                    content: randomResponse
+                });
+                return;
+            }
+            async function run() {
+                try {
+                    const response = await ollama.chat({
+                        model: modelName,
+                        messages: [{ role: 'user', content: userQuery }],
+                    });
+                    const text = response.message.content;
+                    broadcast({
+                        type: 'chat',
+                        sender: parsedMessage.sender,
+                        senderVanity: parsedMessage.senderVanity,
+                        content: `<b>@ai</b> ${purify.sanitize(userQuery)}`
+                    });
+                    broadcast({
+                        type: 'chat',
+                        sender: 'Qwen AI',
+                        senderVanity: 'Qwen AI',
+                        content: text
+                    });
+                } catch (error) {
+                    console.error('Ollama API Error:', error);
+                    ws.send(JSON.stringify({
+                        type: 'chat',
+                        sender: 'Qwen AI',
+                        senderVanity: 'Qwen AI',
+                        content: 'Error processing your request. Please try again later.'
+                    }));
+                }
+            }
+            run();
         }
     });
 
