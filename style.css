@@ -678,7 +678,7 @@ html[data-theme='dark'] #gif-search-input {
 }
 
 .gif-results img:hover {
-    transform: scale(1.05);
+    transform: scale(1.02); /* More subtle hover effect */
 }
 
 .chat-gif {
