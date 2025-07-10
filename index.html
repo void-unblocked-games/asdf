@@ -32,7 +32,30 @@
         </div>
     </div>
     <div id="loading-spinner" class="loading-spinner"></div>
+
+    <div class="modal micromodal-slide" id="settings-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="settings-modal-title">
+                        Settings
+                    </h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content" id="settings-modal-content">
+                    <p>Current Display Name: <span id="current-display-name"></span></p>
+                    <input type="text" id="new-display-name-input" placeholder="Enter new display name">
+                    <button id="save-display-name-button">Save</button>
+                </main>
+                <footer class="modal__footer">
+                    <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/micromodal/dist/micromodal.min.js"></script>
     <script src="client.js"></script>
 </body>
 </html>

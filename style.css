@@ -560,6 +560,205 @@ html[data-theme='dark'] .typing-indicator {
     }
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .sidebar h2 {
+        font-size: 1.5em;
+    }
+    .chat-container header h1 {
+        font-size: 1.2em;
+    }
+    .message {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        flex-direction: column;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        border-radius: 0;
+    }
+    html[data-theme='dark'] .sidebar {
+        border-bottom: 1px solid var(--border-dark);
+    }
+    .sidebar h2 {
+        margin-bottom: 0;
+    }
+    #user-list {
+        display: none; /* Hide user list on small screens */
+    }
+    .chat-container {
+        height: calc(100vh - 60px); /* Adjust height based on sidebar height */
+        border-radius: 0;
+    }
+    .dark-mode-toggle {
+        position: static;
+        transform: none;
+    }
+}
+
+/* Micromodal styles */
+.modal {
+    display: none;
+}
+
+.modal.is-open {
+    display: block;
+}
+
+.modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal__container {
+    background-color: var(--bg-container-light);
+    padding: 30px;
+    border-radius: var(--border-radius-md);
+    max-width: 500px;
+    width: 90%;
+    box-shadow: var(--shadow-lg);
+    transition: background-color var(--transition-speed);
+}
+
+html[data-theme='dark'] .modal__container {
+    background-color: var(--bg-container-dark);
+}
+
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 10px;
+}
+
+html[data-theme='dark'] .modal__header {
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.modal__title {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--text-primary-light);
+}
+
+html[data-theme='dark'] .modal__title {
+    color: var(--text-primary-dark);
+}
+
+.modal__close {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--text-secondary-light);
+}
+
+html[data-theme='dark'] .modal__close {
+    color: var(--text-secondary-dark);
+}
+
+.modal__content {
+    margin-bottom: 20px;
+    color: var(--text-primary-light);
+}
+
+html[data-theme='dark'] .modal__content {
+    color: var(--text-primary-dark);
+}
+
+.modal__footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal__btn {
+    background-color: var(--button-primary-light);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.modal__btn:hover {
+    background-color: var(--button-primary-hover-light);
+}
+
+html[data-theme='dark'] .modal__btn {
+    background-color: var(--button-primary-dark);
+}
+
+html[data-theme='dark'] .modal__btn:hover {
+    background-color: var(--button-primary-hover-dark);
+}
+
+#new-display-name-input {
+    width: calc(100% - 22px); /* Account for padding */
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--input-border-light);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--bg-container-light);
+    color: var(--text-primary-light);
+}
+
+html[data-theme='dark'] #new-display-name-input {
+    border: 1px solid var(--input-border-dark);
+    background-color: var(--bg-message-received-dark);
+    color: var(--text-primary-dark);
+}
+
+#save-display-name-button {
+    background-color: var(--button-primary-light);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+#save-display-name-button:hover {
+    background-color: var(--button-primary-hover-light);
+}
+
+html[data-theme='dark'] #save-display-name-button {
+    background-color: var(--button-primary-dark);
+}
+
+html[data-theme='dark'] #save-display-name-button:hover {
+    background-color: var(--button-primary-hover-dark);
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 8px;

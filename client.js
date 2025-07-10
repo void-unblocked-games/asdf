@@ -376,6 +376,33 @@ settingsButton.addEventListener('click', () => {
     setTimeout(() => {
         settingsButton.classList.remove('jiggle');
     }, 300);
+
+    // Show the settings modal
+    document.getElementById('current-display-name').textContent = myUserVanity;
+    MicroModal.show('settings-modal');
 });
+
+const saveDisplayNameButton = document.getElementById('save-display-name-button');
+const newDisplayNameInput = document.getElementById('new-display-name-input');
+
+saveDisplayNameButton.addEventListener('click', () => {
+    const newVanity = newDisplayNameInput.value.trim();
+    if (newVanity && newVanity !== myUserVanity) {
+        myUserVanity = newVanity;
+        localStorage.setItem('userVanity', myUserVanity);
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({ type: 'setVanity', vanity: myUserVanity }));
+        }
+        alert('Display name updated!');
+        MicroModal.close('settings-modal');
+    } else if (newVanity === myUserVanity) {
+        alert('New display name is the same as the current one.');
+    } else {
+        alert('Display name cannot be empty.');
+    }
+});
+
+// Initialize MicroModal
+MicroModal.init();
 
 connect();
