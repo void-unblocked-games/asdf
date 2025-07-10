@@ -60,7 +60,7 @@
 
 body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Imprima', sans-serif;
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -272,7 +272,7 @@ html[data-theme='dark'] .chat-container header {
     margin: 0;
     font-size: 1.6em; /* Slightly larger font */
     color: var(--text-primary-light);
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Imprima', sans-serif;
     font-weight: 700;
     transition: color var(--transition-speed);
 }
