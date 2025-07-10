@@ -236,6 +236,7 @@ html[data-theme='dark'] .sidebar h2 {
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-radius: var(--border-radius-sm);
     margin-bottom: 8px;
     /* Increased margin */
@@ -267,9 +268,15 @@ html[data-theme='dark'] .user-item.selected {
 }
 
 
+<<<<<<< Updated upstream
 /* Header Buttons Container */
 
 .header-buttons {
+=======
+/* Dark Mode Toggle */
+
+.dark-mode-toggle {
+>>>>>>> Stashed changes
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -511,14 +518,24 @@ html[data-theme='dark'] .input-group {
 
 #message-input {
     flex-grow: 1;
+<<<<<<< Updated upstream
     padding: 12px 18px;
     /* Increased padding */
     border: 1px solid var(--input-border-light);
+=======
+    padding: 10px;
+    /* Increased padding */
+    border: 2px solid var(--input-border-light);
+>>>>>>> Stashed changes
     border-radius: var(--border-radius-pill);
-    font-size: 1.1em;
+    font-size: 1em;
     outline: none;
     resize: none;
+<<<<<<< Updated upstream
     min-height: 45px;
+=======
+    min-height: 30px;
+>>>>>>> Stashed changes
     /* Slightly taller */
     max-height: 120px;
     overflow-y: auto;
@@ -527,7 +544,7 @@ html[data-theme='dark'] .input-group {
     color: var(--text-primary-light);
     transition: border-color var(--transition-speed), background-color var(--transition-speed), color var(--transition-speed);
     font-family: 'Imprima', sans-serif;
-    line-height: 1.5;
+    line-height: 1;
 }
 
 html[data-theme='dark'] #message-input {
@@ -540,9 +557,9 @@ html[data-theme='dark'] #message-input {
     color: var(--input-placeholder-light);
     transition: color var(--transition-speed);
     font-family: 'Imprima', sans-serif;
-    font-size: 1.1em;
+    font-size: 1em;
     text-align: left;
-    line-height: 1.5;
+    line-height: 1;
 }
 
 html[data-theme='dark'] #message-input::placeholder {
@@ -680,6 +697,7 @@ html[data-theme='dark'] .typing-indicator {
 }
 
 
+<<<<<<< Updated upstream
 /* Responsive adjustments */
 
 @media (max-width: 768px) {
@@ -859,6 +877,8 @@ html[data-theme='dark'] #save-display-name-button:hover {
 }
 
 
+=======
+>>>>>>> Stashed changes
 /* GIF Button */
 
 .gif-button {
