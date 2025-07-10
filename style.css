@@ -38,7 +38,7 @@
     --text-secondary-dark: #aaaaaa; /* Secondary text color */
     --text-link-dark: #8ab4f8; /* Link/action color (Google Blue) */
     --text-username-received-dark: #8ab4f8; /* Username color for received messages */
-    --text-username-sent-dark: #fbbc04; /* Username color for sent messages (Google Yellow) */
+    --text-username-sent-dark: var(--text-primary-dark); /* Username color for sent messages, consistent with primary text */
     --input-border-dark: #555555; /* Input border */
     --input-placeholder-dark: #888888; /* Input placeholder */
     --button-primary-dark: #8ab4f8; /* Primary button (Google Blue) */
@@ -418,8 +418,6 @@ html[data-theme='dark'] #message-input::placeholder {
 }
 
 html[data-theme='dark'] #send-button {
-    background-color: var(--button-primary-dark);
-}
     background-color: var(--button-primary-dark);
 }
 
