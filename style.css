@@ -391,13 +391,16 @@ html[data-theme='dark'] #message-input::placeholder {
     background-color: var(--button-primary-light);
     color: white;
     border: none;
-    padding: 6px 25px; /* Half of previous vertical padding */
-    border-radius: var(--border-radius-pill);
+    width: 45px; /* Make it square */
+    height: 45px; /* Make it square */
+    border-radius: 50%; /* Make it circular */
     margin-left: 10px;
     cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color var(--transition-speed), transform 0.1s ease-out; /* Added transform for click effect */
+    font-size: 1.2em; /* Slightly larger icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transition-speed), transform 0.1s ease-out;
 }
 
 #send-button:hover {
