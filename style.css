@@ -391,7 +391,7 @@ html[data-theme='dark'] #message-input::placeholder {
     background-color: var(--button-primary-light);
     color: white;
     border: none;
-    padding: 12px 25px; /* Increased padding */
+    padding: 6px 25px; /* Half of previous vertical padding */
     border-radius: var(--border-radius-pill);
     margin-left: 10px;
     cursor: pointer;
