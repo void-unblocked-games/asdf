@@ -292,7 +292,7 @@ html[data-theme='dark'] #messages {
 
 .message {
     background-color: var(--bg-message-received-light);
-    padding: 4px 18px;
+    padding: 2px 18px;
     border-radius: 20px 20px 20px 5px; /* Rounded corners, with a slight corner on the bottom-left */
     margin-bottom: 10px;
     width: fit-content; /* Shrink to fit content */
