@@ -379,6 +379,9 @@ settingsButton.addEventListener('click', () => {
         settingsButton.classList.remove('jiggle');
     }, 300);
 
+    // Set the current display name in the dropdown
+    document.getElementById('current-display-name').textContent = myUserVanity;
+
     // Toggle the settings dropdown
     settingsDropdown.classList.toggle('show');
 });
