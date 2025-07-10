@@ -176,6 +176,12 @@ wss.on('connection', (ws, req) => {
                     const text = response.text();
                     broadcast({
                         type: 'chat',
+                        sender: parsedMessage.sender,
+                        senderVanity: parsedMessage.senderVanity,
+                        content: `<b>@ai</b> ${purify.sanitize(userQuery)}`
+                    });
+                    broadcast({
+                        type: 'chat',
                         sender: 'Gemini AI',
                         senderVanity: 'Gemini AI',
                         content: text
