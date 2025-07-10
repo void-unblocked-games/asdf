@@ -205,12 +205,18 @@ html[data-theme='dark'] .user-item.selected {
     color: var(--text-primary-dark);
 }
 
-/* Dark Mode Toggle */
-.dark-mode-toggle {
+/* Header Buttons Container */
+.header-buttons {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle, .settings-button {
     background-color: var(--bg-container-light);
     border: 1px solid var(--border-light);
     border-radius: 50%;
@@ -224,23 +230,23 @@ html[data-theme='dark'] .user-item.selected {
     transition: background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
-html[data-theme='dark'] .dark-mode-toggle {
+html[data-theme='dark'] .dark-mode-toggle, html[data-theme='dark'] .settings-button {
     background-color: var(--bg-message-received-dark);
     border-color: var(--border-dark);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.dark-mode-toggle i {
+.dark-mode-toggle i, .settings-button i {
     color: var(--icon-light);
     font-size: 1.5em; /* Slightly larger icon */
     transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
-html[data-theme='dark'] .dark-mode-toggle i {
+html[data-theme='dark'] .dark-mode-toggle i, html[data-theme='dark'] .settings-button i {
     color: var(--text-username-sent-dark);
 }
 
-.dark-mode-toggle.jiggle i {
+.dark-mode-toggle.jiggle i, .settings-button.jiggle i {
     animation: jiggle 0.3s ease-in-out;
 }
 
@@ -252,7 +258,7 @@ html[data-theme='dark'] .dark-mode-toggle i {
     100% { transform: rotate(0deg); }
 }
 
-.dark-mode-toggle.morph i {
+.dark-mode-toggle.morph i, .settings-button.morph i {
     animation: morph 0.3s ease-in-out forwards;
 }
 

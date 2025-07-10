@@ -307,6 +307,7 @@ messageInput.addEventListener('keydown', (event) => {
 
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const darkModeIcon = darkModeToggle.querySelector('i');
+const settingsButton = document.getElementById('settings-button');
 
 function updateDarkModeIcon() {
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
@@ -359,6 +360,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.setAttribute('data-theme', 'light');
     }
     updateDarkModeIcon();
+});
+
+settingsButton.addEventListener('click', () => {
+    // Add jiggle and morph classes
+    settingsButton.classList.add('jiggle');
+    settingsButton.classList.add('morph');
+
+    // After the morph animation completes, remove the morph class
+    setTimeout(() => {
+        settingsButton.classList.remove('morph');
+    }, 300);
+
+    // After the jiggle animation completes, remove the jiggle class
+    setTimeout(() => {
+        settingsButton.classList.remove('jiggle');
+    }, 300);
 });
 
 connect();
