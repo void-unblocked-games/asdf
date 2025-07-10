@@ -329,7 +329,7 @@ html[data-theme='dark'] .message.my-message {
 
 .message .username {
     font-weight: bold;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     color: var(--text-username-received-light);
     cursor: pointer;
     transition: color var(--transition-speed);
