@@ -307,7 +307,7 @@ messageInput.addEventListener('keydown', (event) => {
 
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const darkModeIcon = darkModeToggle.querySelector('i');
-const settingsButton = document.getElementById('settings-button');
+const userProfileButton = document.getElementById('user-profile-button');
 
 function updateDarkModeIcon() {
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
@@ -364,19 +364,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const settingsDropdown = document.getElementById('settings-dropdown');
 
-settingsButton.addEventListener('click', () => {
+userProfileButton.addEventListener('click', () => {
     // Add jiggle and morph classes
-    settingsButton.classList.add('jiggle');
-    settingsButton.classList.add('morph');
+    userProfileButton.classList.add('jiggle');
+    userProfileButton.classList.add('morph');
 
     // After the morph animation completes, remove the morph class
     setTimeout(() => {
-        settingsButton.classList.remove('morph');
+        userProfileButton.classList.remove('morph');
     }, 300);
 
     // After the jiggle animation completes, remove the jiggle class
     setTimeout(() => {
-        settingsButton.classList.remove('jiggle');
+        userProfileButton.classList.remove('jiggle');
     }, 300);
 
     // Set the current display name in the input field
@@ -388,7 +388,7 @@ settingsButton.addEventListener('click', () => {
 
 // Close the dropdown if the user clicks outside of it
 window.addEventListener('click', (event) => {
-    if (!event.target.matches('.settings-button') && !settingsDropdown.contains(event.target)) {
+    if (!event.target.matches('.settings-button') && !userProfileButton.contains(event.target) && !settingsDropdown.contains(event.target)) {
         if (settingsDropdown.classList.contains('show')) {
             settingsDropdown.classList.remove('show');
         }
