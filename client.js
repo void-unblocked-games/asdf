@@ -10,7 +10,7 @@ const closeButton = gifModal.querySelector('.close-button');
 const gifSearchInput = document.getElementById('gif-search-input');
 const gifResults = document.getElementById('gif-results');
 
-const TENOR_API_KEY = 'YOUR_TENOR_API_KEY'; // Replace with your Tenor API Key
+const TENOR_API_KEY = 'AIzaSyDagDpPuDRAdaeQkG6pkS3oBTy3WgwbWes'; // Replace with your Tenor API Key
 
 const converter = new showdown.Converter({ 
     ghCodeBlocks: true,
@@ -129,7 +129,7 @@ async function searchTenorGifs(query) {
         return;
     }
     try {
-        const response = await fetch(`https://api.tenor.com/v1/search?q=${query}&key=${TENOR_API_KEY}&limit=20`);
+        const response = await fetch(`https://tenor.googleapis.com/v2/search?q=${query}&key=${TENOR_API_KEY}&client_key=my_test_app&limit=8`);
         const data = await response.json();
         displayGifResults(data.results);
     } catch (error) {
@@ -146,10 +146,10 @@ function displayGifResults(gifs) {
     }
     gifs.forEach(gif => {
         const img = document.createElement('img');
-        img.src = gif.media[0].gif.url;
+        img.src = gif.media_formats.gif.url;
         img.alt = gif.content_description;
         img.title = gif.content_description;
-        img.addEventListener('click', () => selectGif(gif.media[0].gif.url));
+        img.addEventListener('click', () => selectGif(gif.media_formats.gif.url));
         gifResults.appendChild(img);
     });
 }
