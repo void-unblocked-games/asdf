@@ -2,27 +2,27 @@
 
 :root {
     /* Light Mode Colors */
-    --bg-light: #e1f1fe; /* Lighter background for body */
+    --bg-light: #f5f7fa; /* Lighter background for body */
     --bg-container-light: #ffffff; /* Main container background */
-    --bg-sidebar-light: #f0f4ff; /* Sidebar background */
-    --bg-header-light: #e1f1fe; /* Chat header background */
-    --bg-messages-light: #fdfdfd; /* Messages area background */
-    --bg-message-received-light: #e3e3e3; /* Received message bubble */
-    --bg-message-sent-light: #c8e6fa; /* Sent message bubble (WhatsApp-like green) */
+    --bg-sidebar-light: #eef2f7; /* Sidebar background */
+    --bg-header-light: #ffffff; /* Chat header background */
+    --bg-messages-light: #f5f7fa; /* Messages area background */
+    --bg-message-received-light: #e9e9eb; /* Received message bubble */
+    --bg-message-sent-light: #007bff; /* Sent message bubble (WhatsApp-like green) */
     --bg-input-light: #ffffff; /* Input group background */
-    --border-light: #d0d0d0; /* General border color */
-    --text-primary-light: #333333; /* Primary text color */
-    --text-secondary-light: #777777; /* Secondary text color */
-    --text-link-light: #1a75d5; /* Link/action color (Google Blue) */
-    --text-username-received-light: #1a75d5; /* Username color for received messages */
-    --text-username-sent-light: #216cba; /* Username color for sent messages */
-    --input-border-light: #cccccc; /* Input border */
-    --input-placeholder-light: #aaaaaa; /* Input placeholder */
-    --button-primary-light: #1a75d5; /* Primary button (Google Blue) */
-    --button-primary-hover-light: #165cb3; /* Primary button hover */
-    --icon-light: #5f6368; /* Icon color */
-    --selected-item-bg-light: #e5f3fe; /* Selected item background */
-    --selected-item-hover-light: #dcecfd; /* Selected item hover */
+    --border-light: #dee2e6; /* General border color */
+    --text-primary-light: #212529; /* Primary text color */
+    --text-secondary-light: #6c757d; /* Secondary text color */
+    --text-link-light: #007bff; /* Link/action color (Google Blue) */
+    --text-username-received-light: #007bff; /* Username color for received messages */
+    --text-username-sent-light: #ffffff; /* Username color for sent messages */
+    --input-border-light: #ced4da; /* Input border */
+    --input-placeholder-light: #adb5bd; /* Input placeholder */
+    --button-primary-light: #007bff; /* Primary button (Google Blue) */
+    --button-primary-hover-light: #0069d9; /* Primary button hover */
+    --icon-light: #6c757d; /* Icon color */
+    --selected-item-bg-light: #e9ecef; /* Selected item background */
+    --selected-item-hover-light: #dee2e6; /* Selected item hover */
 
     /* Dark Mode Colors */
     --bg-dark: #141a22; /* Darker background for body */
