@@ -7,6 +7,14 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+const preDefinedAiResponses = [
+    "I'm here. How can I help?",
+    "Yes, I'm listening.",
+    "What's on your mind?",
+    "Ready when you are!",
+    "How may I assist you today?"
+];
+
 const aiQueryCounts = new Map(); // Maps userId to query count
 const crypto = require('crypto');
 const { JSDOM } = require('jsdom');
@@ -166,6 +174,22 @@ wss.on('connection', (ws, req) => {
             aiQueryCounts.set(userId, currentCount + 1);
 
             const userQuery = parsedMessage.content;
+            if (userQuery.trim() === '') {
+                const randomResponse = preDefinedAiResponses[Math.floor(Math.random() * preDefinedAiResponses.length)];
+                broadcast({
+                    type: 'chat',
+                    sender: parsedMessage.sender,
+                    senderVanity: parsedMessage.senderVanity,
+                    content: `<b>@ai</b> ${purify.sanitize(parsedMessage.content)}`
+                });
+                broadcast({
+                    type: 'chat',
+                    sender: 'Gemini AI',
+                    senderVanity: 'Gemini AI',
+                    content: randomResponse
+                });
+                return;
+            }
             async function run() {
                 try {
                     const result = await model.generateContent({

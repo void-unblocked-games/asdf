@@ -261,32 +261,39 @@ function hideTypingIndicator(message) {
 const sendMessage = () => {
     const content = messageInput.value;
     if (content && socket.readyState === WebSocket.OPEN) {
-        const message = {
-            content: content,
+        let messageToSend = {
+            content: purify.sanitize(content), // Sanitize content before sending
             sender: myUserId,
             senderVanity: myUserVanity,
         };
 
-        if (content.startsWith('@ai ')) {
-            message.type = 'aiQuery';
-            message.content = content.substring(4).trim(); // Remove "@ai " prefix
+        let messageToDisplay = { ...messageToSend }; // Copy for display
+
+        if (content.toLowerCase().startsWith('@ai')) {
+            messageToSend.type = 'aiQuery';
+            messageToSend.content = content.substring(content.toLowerCase().startsWith('@ai ') ? 4 : 3).trim(); // Remove "@ai " or "@ai" prefix for AI query
+            messageToDisplay.type = 'chat'; // Display as a chat message
+            messageToDisplay.content = `<b>@ai</b> ${purify.sanitize(content)}`; // Display original content with highlight
         } else if (currentRecipient) {
-            message.type = 'dm';
-            message.recipient = currentRecipient;
+            messageToSend.type = 'dm';
+            messageToSend.recipient = currentRecipient;
+            messageToDisplay.type = 'dm';
+            messageToDisplay.recipient = currentRecipient;
         } else {
-            message.type = 'chat';
+            messageToSend.type = 'chat';
+            messageToDisplay.type = 'chat';
         }
 
         // Display own message immediately
-        displayMessage(message);
+        displayMessage(messageToDisplay);
 
-        socket.send(JSON.stringify(message));
+        socket.send(JSON.stringify(messageToSend));
         messageInput.value = '';
         clearTimeout(typingTimeout);
         sendTypingStatus(false);
     } else if (socket.readyState !== WebSocket.OPEN) {
         console.log('WebSocket is not open. readyState: ' + socket.readyState);
-    }
+    };
 };
 
 sendButton.addEventListener('click', sendMessage);
