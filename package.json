@@ -1,0 +1,17 @@
+{
+  "name": "goon",
+  "version": "1.0.0",
+  "main": "client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dompurify": "^3.2.6",
+    "jsdom": "^26.1.0",
+    "ws": "^8.18.3"
+  }
+}
