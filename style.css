@@ -417,6 +417,10 @@ html[data-theme='dark'] #message-input {
 #message-input::placeholder {
     color: var(--input-placeholder-light);
     transition: color var(--transition-speed);
+    font-family: 'Imprima', sans-serif;
+    font-size: 1.2em;
+    text-align: center;
+    line-height: 1.5;
 }
 
 html[data-theme='dark'] #message-input::placeholder {
