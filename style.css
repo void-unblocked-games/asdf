@@ -4,12 +4,12 @@
     /* Light Mode Colors */
     --bg-light: #f5f7fa; /* Lighter background for body */
     --bg-container-light: #ffffff; /* Main container background */
-    --bg-sidebar-light: #eef2f7; /* Sidebar background */
-    --bg-header-light: #ffffff; /* Chat header background */
+    --bg-sidebar-light: #d1e7ff; /* Sidebar background */
+    --bg-header-light: #d1e7ff; /* Chat header background */
     --bg-messages-light: #f5f7fa; /* Messages area background */
     --bg-message-received-light: #e9e9eb; /* Received message bubble */
     --bg-message-sent-light: #d1e7ff; /* Sent message bubble (WhatsApp-like green) */
-    --bg-input-light: #ffffff; /* Input group background */
+    --bg-input-light: #d1e7ff; /* Input group background */
     --border-light: #dee2e6; /* General border color */
     --text-primary-light: #212529; /* Primary text color */
     --text-secondary-light: #6c757d; /* Secondary text color */
