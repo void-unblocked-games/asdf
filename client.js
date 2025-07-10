@@ -362,6 +362,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDarkModeIcon();
 });
 
+const settingsDropdown = document.getElementById('settings-dropdown');
+
 settingsButton.addEventListener('click', () => {
     // Add jiggle and morph classes
     settingsButton.classList.add('jiggle');
@@ -377,9 +379,17 @@ settingsButton.addEventListener('click', () => {
         settingsButton.classList.remove('jiggle');
     }, 300);
 
-    // Show the settings modal
-    document.getElementById('current-display-name').textContent = myUserVanity;
-    MicroModal.show('settings-modal');
+    // Toggle the settings dropdown
+    settingsDropdown.classList.toggle('show');
+});
+
+// Close the dropdown if the user clicks outside of it
+window.addEventListener('click', (event) => {
+    if (!event.target.matches('.settings-button') && !settingsDropdown.contains(event.target)) {
+        if (settingsDropdown.classList.contains('show')) {
+            settingsDropdown.classList.remove('show');
+        }
+    }
 });
 
 const saveDisplayNameButton = document.getElementById('save-display-name-button');
@@ -394,15 +404,12 @@ saveDisplayNameButton.addEventListener('click', () => {
             socket.send(JSON.stringify({ type: 'setVanity', vanity: myUserVanity }));
         }
         alert('Display name updated!');
-        MicroModal.close('settings-modal');
+        settingsDropdown.classList.remove('show'); // Close dropdown after saving
     } else if (newVanity === myUserVanity) {
         alert('New display name is the same as the current one.');
     } else {
         alert('Display name cannot be empty.');
     }
 });
-
-// Initialize MicroModal
-MicroModal.init();
 
 connect();

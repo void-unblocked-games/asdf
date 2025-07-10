@@ -613,110 +613,79 @@ html[data-theme='dark'] .typing-indicator {
     }
 }
 
-/* Micromodal styles */
-.modal {
-    display: none;
-}
-
-.modal.is-open {
-    display: block;
-}
-
-.modal__overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.modal__container {
+/* Settings Dropdown */
+.settings-dropdown {
+    position: absolute;
+    bottom: 80px; /* Position above the settings button */
+    left: 50%;
+    transform: translateX(-50%);
     background-color: var(--bg-container-light);
-    padding: 30px;
+    border: 1px solid var(--border-light);
     border-radius: var(--border-radius-md);
-    max-width: 500px;
-    width: 90%;
-    box-shadow: var(--shadow-lg);
-    transition: background-color var(--transition-speed);
+    box-shadow: var(--shadow-md);
+    padding: 15px;
+    z-index: 10;
+    min-width: 250px;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    gap: 10px;
+    transition: background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
-html[data-theme='dark'] .modal__container {
+html[data-theme='dark'] .settings-dropdown {
     background-color: var(--bg-container-dark);
+    border-color: var(--border-dark);
 }
 
-.modal__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 10px;
+.settings-dropdown.show {
+    display: flex; /* Show when 'show' class is added */
 }
 
-html[data-theme='dark'] .modal__header {
-    border-bottom: 1px solid var(--border-dark);
-}
-
-.modal__title {
-    font-size: 1.8em;
-    font-weight: bold;
+.settings-dropdown label {
     color: var(--text-primary-light);
+    font-size: 0.9em;
+    transition: color var(--transition-speed);
 }
 
-html[data-theme='dark'] .modal__title {
+html[data-theme='dark'] .settings-dropdown label {
     color: var(--text-primary-dark);
 }
 
-.modal__close {
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    cursor: pointer;
-    color: var(--text-secondary-light);
-}
-
-html[data-theme='dark'] .modal__close {
-    color: var(--text-secondary-dark);
-}
-
-.modal__content {
-    margin-bottom: 20px;
+.settings-dropdown input[type="text"] {
+    width: calc(100% - 22px); /* Account for padding */
+    padding: 10px;
+    border: 1px solid var(--input-border-light);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--bg-container-light);
     color: var(--text-primary-light);
+    transition: border-color var(--transition-speed), background-color var(--transition-speed), color var(--transition-speed);
 }
 
-html[data-theme='dark'] .modal__content {
+html[data-theme='dark'] .settings-dropdown input[type="text"] {
+    border: 1px solid var(--input-border-dark);
+    background-color: var(--bg-message-received-dark);
     color: var(--text-primary-dark);
 }
 
-.modal__footer {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.modal__btn {
+.settings-dropdown button {
     background-color: var(--button-primary-light);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 15px;
     border-radius: var(--border-radius-sm);
     cursor: pointer;
     transition: background-color var(--transition-speed);
 }
 
-.modal__btn:hover {
+.settings-dropdown button:hover {
     background-color: var(--button-primary-hover-light);
 }
 
-html[data-theme='dark'] .modal__btn {
+html[data-theme='dark'] .settings-dropdown button {
     background-color: var(--button-primary-dark);
 }
 
-html[data-theme='dark'] .modal__btn:hover {
+html[data-theme='dark'] .settings-dropdown button:hover {
     background-color: var(--button-primary-hover-dark);
 }
 
