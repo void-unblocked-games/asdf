@@ -3,6 +3,7 @@ const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-button');
 const userListElement = document.getElementById('user-list');
 const chatTitle = document.getElementById('chat-title');
+const loadingSpinner = document.getElementById('loading-spinner');
 
 const converter = new showdown.Converter({ 
     ghCodeBlocks: true,
@@ -24,6 +25,8 @@ let lastTimestamp = +Date.now();
 let backgroundDegrees = 0;
 
 function connect() {
+    loadingSpinner.style.display = 'flex'; // Show spinner
+
     if (!myUserId || !myUserVanity) {
         let displayName = prompt("Please enter your display name:");
         while (!displayName || displayName.trim() === '') {
@@ -38,6 +41,7 @@ function connect() {
 
     socket.onopen = () => {
         console.log('WebSocket connection established.');
+        loadingSpinner.style.display = 'none'; // Hide spinner on successful connection
         if (myUserId && myUserVanity) {
             socket.send(JSON.stringify({ type: 'reconnect', id: myUserId, vanity: myUserVanity }));
         } else if (myUserVanity) {
@@ -73,11 +77,13 @@ function connect() {
 
     socket.onclose = () => {
         console.log('WebSocket connection closed. Reconnecting...');
+        loadingSpinner.style.display = 'flex'; // Show spinner on disconnect/reconnect
         setTimeout(connect, 1000); // Reconnect after 1 second
     };
 
     socket.onerror = (error) => {
         console.error('WebSocket error:', error);
+        loadingSpinner.style.display = 'none'; // Hide spinner on error
         socket.close();
     };
 }
@@ -303,7 +309,7 @@ const darkModeToggle = document.getElementById('dark-mode-toggle');
 const darkModeIcon = darkModeToggle.querySelector('i');
 
 function updateDarkModeIcon() {
-    if (document.body.classList.contains('dark-mode')) {
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
         darkModeIcon.classList.remove('fa-sun');
         darkModeIcon.classList.add('fa-moon');
     } else {
@@ -317,9 +323,14 @@ darkModeToggle.addEventListener('click', () => {
     darkModeToggle.classList.add('jiggle');
     darkModeToggle.classList.add('morph');
 
-    // Toggle dark mode and update gradient colors immediately
-    document.body.classList.toggle('dark-mode');
-    updateGradientColors();
+    // Toggle dark mode
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
 
     // After half of the morph animation, switch the icon
     setTimeout(() => {
@@ -335,20 +346,19 @@ darkModeToggle.addEventListener('click', () => {
     setTimeout(() => {
         darkModeToggle.classList.remove('jiggle');
     }, 300);
-
-    // Save user preference
-    if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('darkMode', 'enabled');
-    } else {
-        localStorage.setItem('darkMode', 'disabled');
-    }
 });
 
-// Apply dark mode if previously enabled
-if (localStorage.getItem('darkMode') === 'enabled') {
-    document.body.classList.add('dark-mode');
-    // No need to call updateGradientColors here, as CSS handles the gradient.
-}
-updateDarkModeIcon();
+// Apply theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    updateDarkModeIcon();
+});
 
 connect();
