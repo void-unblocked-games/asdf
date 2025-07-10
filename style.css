@@ -62,6 +62,8 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     height: 100vh;
     overflow: hidden;
     background: linear-gradient(-45deg, var(--bg-light), var(--bg-container-light), var(--bg-light), var(--bg-container-light));
@@ -117,8 +119,12 @@ html[data-theme='dark'] body {
 }
 
 html[data-theme='dark'] .sidebar {
-        border-bottom: 1px solid var(--border-dark);
-    }
+    background-color: var(--bg-sidebar-dark);
+    border-color: var(--border-dark);
+    box-shadow: var(--shadow-md);
+    border-top-left-radius: var(--border-radius-md);
+    border-bottom-left-radius: var(--border-radius-md);
+}
 
 .sidebar h2 {
     color: var(--text-primary-light);
