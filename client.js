@@ -4,6 +4,13 @@ const sendButton = document.getElementById('send-button');
 const userListElement = document.getElementById('user-list');
 const chatTitle = document.getElementById('chat-title');
 const loadingSpinner = document.getElementById('loading-spinner');
+const gifButton = document.getElementById('gif-button');
+const gifModal = document.getElementById('gif-modal');
+const closeButton = gifModal.querySelector('.close-button');
+const gifSearchInput = document.getElementById('gif-search-input');
+const gifResults = document.getElementById('gif-results');
+
+const TENOR_API_KEY = 'YOUR_TENOR_API_KEY'; // Replace with your Tenor API Key
 
 const converter = new showdown.Converter({ 
     ghCodeBlocks: true,
@@ -88,6 +95,87 @@ function connect() {
     };
 }
 
+// GIF Modal functionality
+gifButton.addEventListener('click', () => {
+    gifModal.style.display = 'flex';
+    gifSearchInput.focus();
+});
+
+closeButton.addEventListener('click', () => {
+    gifModal.style.display = 'none';
+    gifResults.innerHTML = ''; // Clear results when closing
+    gifSearchInput.value = '';
+});
+
+gifModal.addEventListener('click', (event) => {
+    if (event.target === gifModal) {
+        gifModal.style.display = 'none';
+        gifResults.innerHTML = ''; // Clear results when closing
+        gifSearchInput.value = '';
+    }
+});
+
+let gifSearchTimeout;
+gifSearchInput.addEventListener('input', () => {
+    clearTimeout(gifSearchTimeout);
+    gifSearchTimeout = setTimeout(() => {
+        searchTenorGifs(gifSearchInput.value);
+    }, 500); // Debounce search input
+});
+
+async function searchTenorGifs(query) {
+    if (query.trim() === '') {
+        gifResults.innerHTML = '';
+        return;
+    }
+    try {
+        const response = await fetch(`https://api.tenor.com/v1/search?q=${query}&key=${TENOR_API_KEY}&limit=20`);
+        const data = await response.json();
+        displayGifResults(data.results);
+    } catch (error) {
+        console.error('Error searching Tenor GIFs:', error);
+        gifResults.innerHTML = '<p>Error loading GIFs. Please try again.</p>';
+    }
+}
+
+function displayGifResults(gifs) {
+    gifResults.innerHTML = '';
+    if (gifs.length === 0) {
+        gifResults.innerHTML = '<p>No GIFs found.</p>';
+        return;
+    }
+    gifs.forEach(gif => {
+        const img = document.createElement('img');
+        img.src = gif.media[0].gif.url;
+        img.alt = gif.content_description;
+        img.title = gif.content_description;
+        img.addEventListener('click', () => selectGif(gif.media[0].gif.url));
+        gifResults.appendChild(img);
+    });
+}
+
+function selectGif(gifUrl) {
+    const message = {
+        content: gifUrl,
+        sender: myUserId,
+        senderVanity: myUserVanity,
+        type: currentRecipient ? 'dm' : 'chat',
+        isGif: true // Custom property to indicate it's a GIF
+    };
+
+    if (currentRecipient) {
+        message.recipient = currentRecipient;
+    }
+
+    // Display own message immediately
+    displayMessage(message);
+
+    socket.send(JSON.stringify(message));
+    gifModal.style.display = 'none';
+    gifResults.innerHTML = '';
+    gifSearchInput.value = '';
+}
+
 function displayMessage(message, isCached = false) {
     // Cache the message
     if (!isCached) {
@@ -126,8 +214,17 @@ function displayMessage(message, isCached = false) {
 
         const contentElement = document.createElement('div');
         contentElement.classList.add('content');
-        const unsafeHtml = converter.makeHtml(message.content);
-        contentElement.innerHTML = unsafeHtml;
+        
+        if (message.isGif) {
+            const gifImg = document.createElement('img');
+            gifImg.src = message.content;
+            gifImg.alt = 'GIF';
+            gifImg.classList.add('chat-gif');
+            contentElement.appendChild(gifImg);
+        } else {
+            const unsafeHtml = converter.makeHtml(message.content);
+            contentElement.innerHTML = unsafeHtml;
+        }
 
         messageElement.appendChild(usernameElement);
         messageElement.appendChild(contentElement);
@@ -318,6 +415,19 @@ function updateDarkModeIcon() {
     }
 }
 
+// Apply theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    updateDarkModeIcon();
+});
+
 darkModeToggle.addEventListener('click', () => {
     // Add jiggle and morph classes
     darkModeToggle.classList.add('jiggle');
@@ -346,19 +456,6 @@ darkModeToggle.addEventListener('click', () => {
     setTimeout(() => {
         darkModeToggle.classList.remove('jiggle');
     }, 300);
-});
-
-// Apply theme on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-    }
-    updateDarkModeIcon();
 });
 
 connect();

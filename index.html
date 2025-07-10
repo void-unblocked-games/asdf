@@ -25,8 +25,16 @@
             <main id="messages"></main>
             <div class="input-group">
                 <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
+                <button id="gif-button" class="gif-button"><i class="fas fa-gift"></i></button>
                 <button id="send-button"><i class="fas fa-paper-plane"></i></button>
             </div>
+        </div>
+    </div>
+    <div id="gif-modal" class="gif-modal">
+        <div class="gif-modal-content">
+            <span class="close-button">&times;</span>
+            <input type="text" id="gif-search-input" placeholder="Search GIFs...">
+            <div id="gif-results" class="gif-results"></div>
         </div>
     </div>
     <div id="loading-spinner" class="loading-spinner">
