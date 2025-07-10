@@ -2,11 +2,11 @@
 
 :root {
     /* Light Mode Colors */
-    --bg-light: #f5f7fa; /* Lighter background for body */
+    --bg-light: #e0f2f7; /* Lighter background for body */
     --bg-container-light: #ffffff; /* Main container background */
     --bg-sidebar-light: #d1e7ff; /* Sidebar background */
     --bg-header-light: #d1e7ff; /* Chat header background */
-    --bg-messages-light: #f5f7fa; /* Messages area background */
+    --bg-messages-light: #e6f2ff; /* Messages area background */
     --bg-message-received-light: #e9e9eb; /* Received message bubble */
     --bg-message-sent-light: #d1e7ff; /* Sent message bubble (WhatsApp-like green) */
     --bg-input-light: #d1e7ff; /* Input group background */
@@ -76,7 +76,7 @@ body {
     align-items: center; /* Center vertically */
     height: 100vh;
     overflow: hidden;
-    background: linear-gradient(-45deg, var(--bg-light), var(--bg-container-light), var(--bg-light), var(--bg-container-light));
+    background: linear-gradient(-45deg, #e0f2f7, #ffffff, #e0f2f7, #ffffff);
     background-size: 400% 400%;
     animation: gradient-animation 15s ease infinite;
     color: var(--text-primary-light);
