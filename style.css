@@ -2,27 +2,27 @@
 
 :root {
     /* Light Mode Colors */
-    --bg-light: #e3f2fd; /* Lighter background for body */
+    --bg-light: #e1f1fe; /* Lighter background for body */
     --bg-container-light: #ffffff; /* Main container background */
-    --bg-sidebar-light: #f0f8ff; /* Sidebar background */
-    --bg-header-light: #e3f2fd; /* Chat header background */
+    --bg-sidebar-light: #f0f4ff; /* Sidebar background */
+    --bg-header-light: #e1f1fe; /* Chat header background */
     --bg-messages-light: #fdfdfd; /* Messages area background */
-    --bg-message-received-light: #e0e0e0; /* Received message bubble */
-    --bg-message-sent-light: #bbdefb; /* Sent message bubble (WhatsApp-like green) */
+    --bg-message-received-light: #e3e3e3; /* Received message bubble */
+    --bg-message-sent-light: #c8e6fa; /* Sent message bubble (WhatsApp-like green) */
     --bg-input-light: #ffffff; /* Input group background */
     --border-light: #d0d0d0; /* General border color */
     --text-primary-light: #333333; /* Primary text color */
     --text-secondary-light: #777777; /* Secondary text color */
-    --text-link-light: #1976d2; /* Link/action color (Google Blue) */
-    --text-username-received-light: #1976d2; /* Username color for received messages */
-    --text-username-sent-light: #0d47a1; /* Username color for sent messages */
+    --text-link-light: #1a75d5; /* Link/action color (Google Blue) */
+    --text-username-received-light: #1a75d5; /* Username color for received messages */
+    --text-username-sent-light: #216cba; /* Username color for sent messages */
     --input-border-light: #cccccc; /* Input border */
     --input-placeholder-light: #aaaaaa; /* Input placeholder */
-    --button-primary-light: #1976d2; /* Primary button (Google Blue) */
-    --button-primary-hover-light: #1565c0; /* Primary button hover */
+    --button-primary-light: #1a75d5; /* Primary button (Google Blue) */
+    --button-primary-hover-light: #165cb3; /* Primary button hover */
     --icon-light: #5f6368; /* Icon color */
-    --selected-item-bg-light: #e3f2fd; /* Selected item background */
-    --selected-item-hover-light: #d4eafd; /* Selected item hover */
+    --selected-item-bg-light: #e5f3fe; /* Selected item background */
+    --selected-item-hover-light: #dcecfd; /* Selected item hover */
 
     /* Dark Mode Colors */
     --bg-dark: #141a22; /* Darker background for body */
