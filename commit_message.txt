@@ -1,1 +1,0 @@
-fix: remove invalid characters from client.js
