@@ -324,7 +324,7 @@ html[data-theme='dark'] #messages {
     padding: 2px 18px;
     border-radius: 20px 20px 20px 5px; /* Rounded corners, with a slight corner on the bottom-left */
     margin-bottom: 10px;
-    max-width: 70%; /* Limit message bubble width */
+    max-width: 65%; /* Limit message bubble width */
     width: fit-content; /* Shrink to fit content */
     word-wrap: break-word;
     box-shadow: var(--shadow-sm);
