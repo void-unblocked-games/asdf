@@ -402,7 +402,7 @@ function hideTypingIndicator(message) {
     }
 }
 
-const sendMessage = () => {
+let sendMessage = () => {
     const content = messageInput.value;
     if (content && socket.readyState === WebSocket.OPEN) {
         let messageType = 'chat';
