@@ -397,7 +397,7 @@ html[data-theme='dark'] .input-group {
     padding: 12px 18px; /* Increased padding */
     border: 1px solid var(--input-border-light);
     border-radius: var(--border-radius-pill);
-    font-size: 1em;
+    font-size: 1.1em;
     outline: none;
     resize: none;
     min-height: 45px; /* Slightly taller */
@@ -406,6 +406,8 @@ html[data-theme='dark'] .input-group {
     background-color: var(--bg-container-light); /* Match container background */
     color: var(--text-primary-light);
     transition: border-color var(--transition-speed), background-color var(--transition-speed), color var(--transition-speed);
+    font-family: 'Imprima', sans-serif;
+    line-height: 1.5;
 }
 
 html[data-theme='dark'] #message-input {
