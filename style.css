@@ -47,6 +47,16 @@
     --selected-item-bg-dark: #3d4a59; /* Selected item background */
     --selected-item-hover-dark: #4d5e75; /* Selected item hover */
 
+    /* Scrollbar */
+    --scrollbar-bg: #f1f1f1;
+    --scrollbar-thumb-bg: #c1c1c1;
+    --scrollbar-thumb-hover-bg: #a8a8a8;
+
+    /* Dark Mode Scrollbar */
+    --scrollbar-bg-dark: #2a3441;
+    --scrollbar-thumb-bg-dark: #55667d;
+    --scrollbar-thumb-hover-bg-dark: #6e809a;
+
     /* General */
     --border-radius-sm: 8px;
     --border-radius-md: 12px;
@@ -81,6 +91,18 @@ html[data-theme='dark'] body {
     background-size: 400% 400%;
     animation: gradient-animation 15s ease infinite;
     color: var(--text-primary-dark);
+}
+
+html[data-theme='dark'] ::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg-dark);
+}
+
+html[data-theme='dark'] ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-bg-dark);
+}
+
+html[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover-bg-dark);
 }
 
 @keyframes gradient-animation {
@@ -528,4 +550,22 @@ html[data-theme='dark'] .typing-indicator {
         position: static;
         transform: none;
     }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-bg);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover-bg);
 }
