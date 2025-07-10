@@ -348,6 +348,10 @@ html[data-theme='dark'] .message.my-message .username {
     color: var(--text-username-sent-dark);
 }
 
+.message .content p {
+    margin-top: 0;
+}
+
 /* Input Group */
 .input-group {
     display: flex;
