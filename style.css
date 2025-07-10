@@ -92,6 +92,7 @@ html[data-theme='dark'] body {
 /* App Container */
 .app-container {
     display: flex;
+    position: relative; /* Added for positioning loading spinner */
     width: 90%; /* Make it wider */
     height: 90vh; /* Make it slightly less tall */
     overflow: hidden;
@@ -332,6 +333,7 @@ html[data-theme='dark'] .message.my-message {
     color: var(--text-username-received-light);
     cursor: pointer;
     transition: color var(--transition-speed);
+    text-transform: lowercase;
 }
 
 .message.my-message .username {
