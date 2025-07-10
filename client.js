@@ -186,10 +186,12 @@ async function searchTenorGifs(query, pos = '') {
     isLoadingGifs = true;
     showGifLoadingIndicator();
     try {
-        const url = `https://tenor.googleapis.com/v2/search?q=${query}&key=${TENOR_API_KEY}&client_key=my_test_app&limit=8${pos ? `&pos=${pos}` : ''}`;
+        const url = `https://tenor.googleapis.com/v2/search?q=${query}&key=${TENOR_API_KEY}&client_key=my_test_app&limit=20${pos ? `&pos=${pos}` : ''}`;
         const response = await fetch(url);
         const data = await response.json();
+        console.log('Tenor API response data:', data); // Log the entire response data
         nextGifPos = data.next || '';
+        console.log('nextGifPos:', nextGifPos); // Log the nextGifPos value
         displayGifResults(data.results, pos === ''); // Clear only for initial search
     } catch (error) {
         console.error('Error searching Tenor GIFs:', error);
