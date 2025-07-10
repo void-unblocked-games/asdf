@@ -178,7 +178,7 @@ gifResults.addEventListener('scroll', () => {
     }
 });
 
-async function searchTenorGifs(query, pos = '') {
+"""async function searchTenorGifs(query, pos = '') {
     if (query.trim() === '') {
         gifResults.innerHTML = '';
         return;
@@ -199,6 +199,27 @@ async function searchTenorGifs(query, pos = '') {
         hideGifLoadingIndicator();
     }
 }
+
+function displayGifResults(results, clear) {
+    if (clear) {
+        gifResults.innerHTML = '';
+    }
+    results.forEach(result => {
+        const gifUrl = result.media_formats.gif.url;
+        const gifPreviewUrl = result.media_formats.tinygif.url;
+        const gifItem = document.createElement('div');
+        gifItem.classList.add('gif-item');
+        const gifImg = document.createElement('img');
+        gifImg.src = gifPreviewUrl;
+        gifImg.dataset.fullUrl = gifUrl;
+        gifImg.alt = result.content_description;
+        gifItem.appendChild(gifImg);
+        gifItem.addEventListener('click', () => {
+            selectGif(gifUrl);
+        });
+        gifResults.appendChild(gifItem);
+    });
+}""
 
 function displayMessage(message, isCached = false) {
     // Cache the message
