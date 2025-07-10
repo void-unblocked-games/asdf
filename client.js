@@ -12,7 +12,7 @@ const gifResults = document.getElementById('gif-results');
 
 const TENOR_API_KEY = 'AIzaSyDagDpPuDRAdaeQkG6pkS3oBTy3WgwbWes'; // Replace with your Tenor API Key
 
-const converter = new showdown.Converter({ 
+const converter = new showdown.Converter({
     ghCodeBlocks: true,
     tasklists: true
 });
@@ -138,7 +138,7 @@ const gifLoadingIndicator = document.createElement('div');
 gifLoadingIndicator.id = 'gif-loading-indicator';
 gifLoadingIndicator.textContent = 'Loading more GIFs...';
 gifLoadingIndicator.style.display = 'none'; // Hidden by default
-gifModal.querySelector('.gif-modal-content').appendChild(gifLoadingIndicator);
+gifResults.appendChild(gifLoadingIndicator);
 
 function showGifLoadingIndicator() {
     gifLoadingIndicator.style.display = 'block';
@@ -178,7 +178,7 @@ gifResults.addEventListener('scroll', () => {
     }
 });
 
-"""async function searchTenorGifs(query, pos = '') {
+async function searchTenorGifs(query, pos = '') {
     if (query.trim() === '') {
         gifResults.innerHTML = '';
         return;
@@ -503,4 +503,3 @@ darkModeToggle.addEventListener('click', () => {
 });
 
 connect();
-
