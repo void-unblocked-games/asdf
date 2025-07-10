@@ -2,6 +2,12 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const WebSocket = require('ws');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+const aiQueryCounts = new Map(); // Maps userId to query count
 const crypto = require('crypto');
 const { JSDOM } = require('jsdom');
 const DOMPurify = require('dompurify');
@@ -143,6 +149,45 @@ wss.on('connection', (ws, req) => {
             const sanitizedContent = purify.sanitize(parsedMessage.content);
             parsedMessage.content = sanitizedContent;
             broadcast(parsedMessage, ws);
+        } else if (parsedMessage.type === 'aiQuery') {
+            const userId = parsedMessage.sender;
+            const currentCount = aiQueryCounts.get(userId) || 0;
+
+            if (currentCount >= 4) {
+                ws.send(JSON.stringify({
+                    type: 'chat',
+                    sender: 'Gemini AI',
+                    senderVanity: 'Gemini AI',
+                    content: 'You have reached your query limit (4 queries per session).'
+                }));
+                return;
+            }
+
+            aiQueryCounts.set(userId, currentCount + 1);
+
+            const userQuery = parsedMessage.content;
+            async function run() {
+                try {
+                    const result = await model.generateContent(userQuery);
+                    const response = await result.response;
+                    const text = response.text();
+                    broadcast({
+                        type: 'chat',
+                        sender: 'Gemini AI',
+                        senderVanity: 'Gemini AI',
+                        content: text
+                    });
+                } catch (error) {
+                    console.error('Gemini API Error:', error);
+                    ws.send(JSON.stringify({
+                        type: 'chat',
+                        sender: 'Gemini AI',
+                        senderVanity: 'Gemini AI',
+                        content: 'Error processing your request. Please try again later.'
+                    }));
+                }
+            }
+            run();
         }
     });
 

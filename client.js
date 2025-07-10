@@ -267,7 +267,10 @@ const sendMessage = () => {
             senderVanity: myUserVanity,
         };
 
-        if (currentRecipient) {
+        if (content.startsWith('@ai ')) {
+            message.type = 'aiQuery';
+            message.content = content.substring(4).trim(); // Remove "@ai " prefix
+        } else if (currentRecipient) {
             message.type = 'dm';
             message.recipient = currentRecipient;
         } else {
