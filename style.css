@@ -418,8 +418,8 @@ html[data-theme='dark'] #message-input {
     color: var(--input-placeholder-light);
     transition: color var(--transition-speed);
     font-family: 'Imprima', sans-serif;
-    font-size: 1.2em;
-    text-align: center;
+    font-size: 1.1em;
+    text-align: left;
     line-height: 1.5;
 }
 
