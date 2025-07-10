@@ -25,27 +25,27 @@
     --selected-item-hover-light: #d4eafd; /* Selected item hover */
 
     /* Dark Mode Colors */
-    --bg-dark: #0d1b2a; /* Darker background for body */
-    --bg-container-dark: #1b263b; /* Main container background */
-    --bg-sidebar-dark: #0d1b2a; /* Sidebar background */
-    --bg-header-dark: #0d1b2a; /* Chat header background */
-    --bg-messages-dark: #1b263b; /* Messages area background */
-    --bg-message-received-dark: #415a77; /* Received message bubble */
-    --bg-message-sent-dark: #778da9; /* Sent message bubble (WhatsApp-like dark green) */
-    --bg-input-dark: #0d1b2a; /* Input group background */
-    --border-dark: #415a77; /* General border color */
-    --text-primary-dark: #e0e1dd; /* Primary text color */
-    --text-secondary-dark: #a9a9a9; /* Secondary text color */
+    --bg-dark: #141a22; /* Darker background for body */
+    --bg-container-dark: #222934; /* Main container background */
+    --bg-sidebar-dark: #181f28; /* Sidebar background */
+    --bg-header-dark: #181f28; /* Chat header background */
+    --bg-messages-dark: #222934; /* Messages area background */
+    --bg-message-received-dark: #3d4a59; /* Received message bubble */
+    --bg-message-sent-dark: #40738c; /* Sent message bubble (WhatsApp-like dark green) */
+    --bg-input-dark: #181f28; /* Input group background */
+    --border-dark: #434f5e; /* General border color */
+    --text-primary-dark: #e0e0e0; /* Primary text color */
+    --text-secondary-dark: #aaaaaa; /* Secondary text color */
     --text-link-dark: #8ab4f8; /* Link/action color (Google Blue) */
     --text-username-received-dark: #8ab4f8; /* Username color for received messages */
     --text-username-sent-dark: var(--text-primary-dark); /* Username color for sent messages, consistent with primary text */
-    --input-border-dark: #415a77; /* Input border */
+    --input-border-dark: #4b5563; /* Input border */
     --input-placeholder-dark: #888888; /* Input placeholder */
     --button-primary-dark: #8ab4f8; /* Primary button (Google Blue) */
     --button-primary-hover-dark: #669df6; /* Primary button hover */
     --icon-dark: #9aa0a6; /* Icon color */
-    --selected-item-bg-dark: #415a77; /* Selected item background */
-    --selected-item-hover-dark: #526f91; /* Selected item hover */
+    --selected-item-bg-dark: #3d4a59; /* Selected item background */
+    --selected-item-hover-dark: #4d5e75; /* Selected item hover */
 
     /* General */
     --border-radius-sm: 8px;
