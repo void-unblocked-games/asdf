@@ -2,10 +2,19 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const WebSocket = require('ws');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const Ollama = require('ollama').default;
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+let ollama;
+let modelName = 'qwen:0.5b'; // Default Ollama model name for Qwen 0.5B
+
+try {
+    ollama = new Ollama({
+        host: process.env.OLLAMA_HOST || 'http://localhost:11434',
+    });
+} catch (error) {
+    console.warn("Warning: Ollama client could not be initialized. Check OLLAMA_HOST environment variable.", error);
+    ollama = null; // Ensure ollama is null if initialization fails
+}
 
 const preDefinedAiResponses = [
     "I'm here. How can I help?",
@@ -161,17 +170,15 @@ wss.on('connection', (ws, req) => {
             const userId = parsedMessage.sender;
             const currentCount = aiQueryCounts.get(userId) || 0;
 
-            if (currentCount >= 4) {
+            if (!ollama) {
                 ws.send(JSON.stringify({
                     type: 'chat',
-                    sender: 'Gemini AI',
-                    senderVanity: 'Gemini AI',
-                    content: 'You have reached your query limit (4 queries per session).'
+                    sender: 'Qwen AI',
+                    senderVanity: 'Qwen AI',
+                    content: 'Qwen AI (Ollama) is not initialized. Please check server logs for warnings.'
                 }));
                 return;
             }
-
-            aiQueryCounts.set(userId, currentCount + 1);
 
             const userQuery = parsedMessage.content;
             if (userQuery.trim() === '') {
@@ -192,12 +199,11 @@ wss.on('connection', (ws, req) => {
             }
             async function run() {
                 try {
-                    const result = await model.generateContent({
-                        contents: [{ role: "user", parts: [{ text: userQuery }] }],
-                        generationConfig: { maxOutputTokens: 1000 },
+                    const response = await ollama.chat({
+                        model: modelName,
+                        messages: [{ role: 'user', content: userQuery }],
                     });
-                    const response = await result.response;
-                    const text = response.text();
+                    const text = response.message.content;
                     broadcast({
                         type: 'chat',
                         sender: parsedMessage.sender,
@@ -206,16 +212,16 @@ wss.on('connection', (ws, req) => {
                     });
                     broadcast({
                         type: 'chat',
-                        sender: 'Gemini AI',
-                        senderVanity: 'Gemini AI',
+                        sender: 'Qwen AI',
+                        senderVanity: 'Qwen AI',
                         content: text
                     });
                 } catch (error) {
-                    console.error('Gemini API Error:', error);
+                    console.error('Ollama API Error:', error);
                     ws.send(JSON.stringify({
                         type: 'chat',
-                        sender: 'Gemini AI',
-                        senderVanity: 'Gemini AI',
+                        sender: 'Qwen AI',
+                        senderVanity: 'Qwen AI',
                         content: 'Error processing your request. Please try again later.'
                     }));
                 }

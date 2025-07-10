@@ -10,9 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
     "dompurify": "^3.2.6",
     "jsdom": "^26.1.0",
-    "ws": "^8.18.3"
+    "ollama": "^0.5.16"
   }
 }

@@ -268,13 +268,7 @@ const sendMessage = () => {
         if (content.toLowerCase().startsWith('@ai')) {
             messageType = 'aiQuery';
             messageContent = content.substring(content.toLowerCase().startsWith('@ai ') ? 4 : 3).trim();
-            // For display, we want the original content with @ai highlighted
-            displayMessage({
-                type: 'chat', // Display as a regular chat message
-                content: `<b>@ai</b> ${content}`,
-                sender: myUserId,
-                senderVanity: myUserVanity,
-            });
+            
         } else if (currentRecipient) {
             messageType = 'dm';
             messageRecipient = currentRecipient;
